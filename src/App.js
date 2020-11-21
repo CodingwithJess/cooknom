@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect (() => {
     getRecipes();
-  }, [])
+  },[query])
 
   const getRecipes = async () => {
     const response = await fetch(
@@ -28,7 +28,8 @@ const App = () => {
 
   const getSearch = e => {
     e.preventDefault();
-    setQuery(search)
+    setQuery(search);
+    setSearch("");
   }
 
   return (
@@ -42,14 +43,17 @@ const App = () => {
         />
         <button className="search-button" type="submit">Search</button>
       </form>
-      {recipes.map(recipe => (
-        <Recipe
-        key={recipe.recipe.label} 
-        title={recipe.recipe.label}
-        calories={recipe.recipe.calories}
-        image={recipe.recipe.image}  
-        />
-      ))}
+        <div className="recipes">
+        {recipes.map(recipe => (
+          <Recipe
+          key={recipe.recipe.label} 
+          title={recipe.recipe.label}
+          calories={recipe.recipe.calories}
+          image={recipe.recipe.image}
+          ingredients={recipe.recipe.ingredients}  
+          />
+        ))}
+        </div>
     </div>
   );
 }
